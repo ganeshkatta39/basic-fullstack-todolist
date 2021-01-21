@@ -5,7 +5,7 @@ const Task = require("../models/taskSchema")
 router.get("/tasks", async (req,res)=>{
    try{
        const tasklist = await Task.find()
-       res.send(tasklist)
+       res.json(tasklist)
    }catch(err){
        res.json({message: err})
    }

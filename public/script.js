@@ -6,6 +6,9 @@ let priority_medium = document.querySelector(".M")
 let priority_low = document.querySelector(".L")
 let pop_sound = document.querySelector("#myAudio")
 
+// url for getting the data from the database and entering data to the data base.
+let Url = "https://todo-list-g.herokuapp.com/"
+
 //default priority is low
 let priority_of_task = "Low"
 
@@ -32,7 +35,7 @@ button.addEventListener("click", submit)
 
 // onload of the page we get the previous tasks data from db
 async function get_tasks_onload(){
-    let response = await fetch("http://localhost:3000/api/tasks")
+    let response = await fetch(`${Url}/api/tasks`)
     tasks = await response.json()
     add_tasks(tasks)
 }
@@ -50,7 +53,7 @@ function add_tasks(data){
             const options = {
                 method: 'DELETE'
             }
-            fetch(`http://localhost:3000/api/del/${element._id}`,options)
+            fetch(`${Url}api/del/${element._id}`,options)
             setTimeout(()=>t.remove(), 10)
             
         })
@@ -80,7 +83,7 @@ async function submit (){
         },
         body: JSON.stringify(data)
     }
-    let re = await fetch("http://localhost:3000/api/add",options)
+    let re = await fetch(`${Url}api/add`,options)
     data = await re.json()
     inputt.value = ""
     add_tasks([data])

@@ -17,7 +17,7 @@ const add = require("./routes/add")
 
 // express app
 const app = express()
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 // //View Engine
 // app.set('views',path.join(__dirname,"views"))

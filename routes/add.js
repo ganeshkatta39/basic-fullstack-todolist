@@ -16,9 +16,9 @@ router.post("/add", (req,res)=>{
     }
 })
 
-router.delete("/del/:postid", async (req,res)=>{
+router.delete("/del/:postid", (req,res)=>{
     try{
-        await Task.deleteOne({_id: req.params.postid})
+        Task.deleteOne({_id: req.params.postid})
     }catch(err){
         res.json({message: err})
     }

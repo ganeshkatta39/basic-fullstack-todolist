@@ -35,7 +35,7 @@ button.addEventListener("click", submit)
 
 // onload of the page we get the previous tasks data from db
 async function get_tasks_onload(){
-    let response = await fetch(`${Url}/api/tasks`)
+    let response = await fetch(`${Url}api/tasks`)
     tasks = await response.json()
     add_tasks(tasks)
 }

@@ -56,7 +56,7 @@ function add_tasks(data){
             fetch(`${Url}api/del/${element._id}`,options)
             setTimeout(()=>t.remove(), 10)
             
-        })
+        },{once: true})
         t.classList.add("task")
         t.classList.add(element.priority)
         t.innerHTML = `<span class="task_pty ${element.priority[0]}">${element.priority[0]}</span> ${element.title}` 

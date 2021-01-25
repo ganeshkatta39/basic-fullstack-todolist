@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="https://img.icons8.com/plumpy/24/000000/todo-list.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/38a548e0d1.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <link rel="stylesheet" href="style.css">
@@ -13,21 +15,25 @@
         <source src="del.wav" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-
-    <h1 class="title">TODO list</h1>
-    <div class="info">
-        <div class="priority">
-            <h3>priority: <span class="H">H</span> <span class="M">M</span> <span class="L active">L</span></h3>
+ <header><h1>Todo-list</h1></header>
+    <form>
+        <div class="select">
+            <select name="todos" class="priority-todo">
+                <option value="none">Priority</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
         </div>
-        
-        <input type="text">
-        <button class="submit">Submit</button>
-    </div>
 
-    <div class="tasks">
-    </div>
-    <div class="todolist">
-        
+        <input type="text" class="todo-input"/>
+        <button type="submit" class="todo-button">
+            <i class="fas fa-plus-square"></i>
+        </button>
+    </form>
+
+    <div class="todo-container">
+        <ul class="todo-list"></ul>
     </div>
     <script src="script.js"></script>
 </body>

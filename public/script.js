@@ -20,7 +20,6 @@ function deleteTodo(todo, data){
         method: 'DELETE'
     }
     fetch(`${url}api/del/${data._id}`,options)
-    console.log(url, data._id)
 }
 
 function checkTodo(e){

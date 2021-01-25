@@ -1,74 +1,137 @@
-body {
+* {
+  padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
-.title {
-  font-size: 3rem;
+
+body {
+  background-image: linear-gradient(120deg, #e2c35d, #d88771);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+}
+
+header {
+  font-size: 1.5rem;
+  margin-top: 0;
   padding-top: 0;
+}
+
+header,
+form {
+  min-height: 20vh;
   display: flex;
   justify-content: center;
-}
-
-.info {
-  display: flex;
-  justify-content: center;
-}
-
-.priority {
-  margin-top: 10px;
-  margin-right: 10px;
-}
-
-.priority span {
-  cursor: pointer;
-  transition: all 0.5s ease-in-out;
-}
-
-.priority span:hover {
-  background-color: rgb(255, 255, 96);
-  border-radius: 40%;
-  border: none;
-}
-
-.active {
-  background-color: rgb(255, 166, 0);
-  border-radius: 40%;
-  border: none;
-}
-
-.task {
-  font-weight: 400;
-}
-
-.task_pty {
-  padding: 5px;
-  margin-right: 0.5rem;
-  border-radius: 50%;
-  border: none;
-}
-
-.tasks .H {
-  background-color: rgb(255, 102, 0);
-}
-.tasks .M {
-  background-color: rgb(255, 251, 0);
-}
-.tasks .L {
-  background-color: rgb(187, 255, 0);
-}
-
-input {
-  margin-top: 1.5rem;
-  height: 1.5rem;
   align-items: center;
 }
 
-.submit {
-  margin: 1rem;
-  padding: 1rem;
-  font-weight: 700;
+form input,
+form button {
+  padding: 0.5rem;
+  font-size: 2rem;
+  border: none;
+  background: white;
 }
 
-.delete {
-  margin-left: 1rem;
-  padding: 0.5rem;
+form button {
+  color: #d88771;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background: #d88771;
+  color: white;
+}
+
+.todo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-list {
+  min-width: 30%;
+  list-style: none;
+}
+
+.todo {
+  margin: 0.5rem;
+  font-size: 1rem;
+  color: black;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.todo li {
+  flex: 1;
+}
+
+/*for the delete button*/
+.delete-btn {
+  border: none;
+  color: white;
+  background: #ff6f47;
+  padding: 0.74rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.delete-btn:hover {
+  color: #000;
+}
+.fa-trash {
+  pointer-events: none;
+}
+
+/*this is for the priority */
+.priority {
+  margin: 0.5rem;
+}
+.High {
+  color: red;
+}
+.Medium {
+  color: yellow;
+}
+.Low {
+  color: yellowgreen;
+}
+
+.todo-item {
+  padding: 0rem 0.5rem;
+}
+
+/* Transitions for complete and delete*/
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.fall {
+  transform: translateY(8rem) rotateZ(20deg);
+  opacity: 0;
+}
+
+/* this is for the drop-down of priority */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+}
+.select {
+  margin: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+select {
+  color: #ff6f47;
+  width: 5rem;
+  cursor: pointer;
+  padding: 1rem;
 }

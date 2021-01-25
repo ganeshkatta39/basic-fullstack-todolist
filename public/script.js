@@ -1,79 +1,97 @@
-let inputt = document.querySelector("input")
-let button = document.querySelector(".submit")
-let tasks_list = document.querySelector(".tasks")
-let priority_high = document.querySelector(".H")
-let priority_medium = document.querySelector(".M")
-let priority_low = document.querySelector(".L")
+// selectors
+let todoInput = document.querySelector(".todo-input")
+let todoButton = document.querySelector(".todo-button")
+let todoList = document.querySelector(".todo-list")
+let todoPriority = document.querySelector(".priority-todo")
 let pop_sound = document.querySelector("#myAudio")
 
-// url for getting the data from the database and entering data to the data base.
-let Url = "https://todo-list-g.herokuapp.com/"
+let url = "https://todo-list-g.herokuapp.com/"
 
-//default priority is low
-let priority_of_task = "Low"
+todoButton.addEventListener("click", sendDataToDb)
 
-
-// function to reuse the code and pty is priority
-function set_priority(pty_1,pty_2,pty_3,pty_text){
-    pty_1.addEventListener("click",()=>{
-        pty_1.classList.add("active")
-        pty_2.classList.remove("active")
-        pty_3.classList.remove("active")
-        priority_of_task = pty_text
+// functions
+function deleteTodo(todo, data){
+    todo.classList.add("fall")
+    pop_sound.play()
+    todo.addEventListener("transitionend", ()=>{
+        todo.remove();
     })
+    const options = {
+        method: 'DELETE'
+    }
+    fetch(`${url}api/del/${data._id}`,options)
+    console.log(url, data._id)
 }
-set_priority(priority_high,priority_low,priority_medium,"High")
-set_priority(priority_medium,priority_low,priority_high,"Medium")
-set_priority(priority_low,priority_high,priority_medium,"Low")
 
-
-
-let tasks
-button.addEventListener("click", submit)
-
-
+function checkTodo(e){
+    let item = e.target
+    const todo = item.parentElement
+    todo.classList.toggle("completed");
+}
 
 // onload of the page we get the previous tasks data from db
 async function get_tasks_onload(){
-    let response = await fetch(`${Url}api/tasks`)
+    let response = await fetch(`${url}api/tasks`)
     tasks = await response.json()
-    add_tasks(tasks)
+    addTodo(tasks)
 }
 
 
-// adds tasks to the page on submitting
-function add_tasks(data){
+function addTodo(data){
     data.forEach(element => {
-        let t= document.createElement("ul")
-        let but = document.createElement("button")
-        but.className = "delete"
-        but.innerText = "Del"
-        but.addEventListener("click", ()=>{
-            pop_sound.play()
-            const options = {
-                method: 'DELETE'
-            }
-            fetch(`${Url}api/del/${element._id}`,options)
-            setTimeout(()=>t.remove(), 10)
-            
-        },{once: true})
-        t.classList.add("task")
-        t.classList.add(element.priority)
-        t.innerHTML = `<span class="task_pty ${element.priority[0]}">${element.priority[0]}</span> ${element.title}` 
-        tasks_list.append(t)
-        t.append(but)
+        // todo div
+        const todoDiv = document.createElement("div")
+        todoDiv.classList.add("todo")
+    
+        // priority
+        const priority = document.createElement("div")
+        priority.innerHTML = '<i class="fas fa-circle"></i>'
+        priority.classList.add("priority")
+        priority.classList.add(element.priority)
+        todoDiv.appendChild(priority)
+    
+        // create li
+        const newTodo = document.createElement("li")
+        newTodo.innerText = element.title
+        newTodo.classList.add("todo-item")
+        newTodo.addEventListener("click", checkTodo)
+        todoDiv.appendChild(newTodo);
+    
+        // creating delete buttons
+        const deleteButton = document.createElement("button")
+        deleteButton.innerHTML = '<i class="fas fa-trash"></i>'
+        deleteButton.classList.add("delete-btn")
+        todoDiv.appendChild(deleteButton)
+        // adding event listner to delete
+        deleteButton.addEventListener("click", function() { deleteTodo(todoDiv,element); } )
+    
+        // appending div to list
+        todoList.appendChild(todoDiv)
+        if(element.isDone){    
+        todoDiv.classList.toggle("completed");
+        }
     });
+
 }
 
-// on submitting the task
-async function submit (){
-    if(inputt.value==""){
-        alert("Blank task is not valied")
+async function sendDataToDb(event){
+    // prevent form from submitting
+    event.preventDefault();
+
+    // check for invalid inputs and null cases to prevent error.
+    if(todoPriority.value=="none" || todoInput.value==""){
+        if(todoPriority.value=="none"){
+            alert("priority cannot be none. select a priority level")
+        }else{
+            alert("Input cannot be empty")
+        }
         return
     }
+
+    // setting all the data into a object
     let data = {
-        title:inputt.value,
-        priority:priority_of_task,
+        title:todoInput.value,
+        priority:todoPriority.value,
         isDone: false
     }
     const options = {
@@ -83,8 +101,8 @@ async function submit (){
         },
         body: JSON.stringify(data)
     }
-    let re = await fetch(`${Url}api/add`,options)
+    let re = await fetch(`${url}api/add`,options)
     data = await re.json()
-    inputt.value = ""
-    add_tasks([data])
+    todoInput.value = ""
+    addTodo([data])
 }

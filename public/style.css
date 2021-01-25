@@ -131,6 +131,7 @@ select {
 }
 select {
   color: #ff6f47;
+  background: white;
   width: 5rem;
   cursor: pointer;
   padding: 1rem;

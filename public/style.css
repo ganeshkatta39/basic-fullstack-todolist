@@ -93,13 +93,13 @@ form button:hover {
   margin: 0.5rem;
 }
 .High {
-  color: red;
+  color: #eb5a46;
 }
 .Medium {
-  color: yellow;
+  color: #ff9f1a;
 }
 .Low {
-  color: yellowgreen;
+  color: #f2d600;
 }
 
 .todo-item {

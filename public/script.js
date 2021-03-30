@@ -53,7 +53,7 @@ function addTodo(data){
         todoDiv.appendChild(priority)
     
         // create li
-        const newTodo = document.createElement("li")
+        const newTodo = document.createElement("p")
         newTodo.innerText = element.title
         newTodo.classList.add("todo-item")
         newTodo.addEventListener("click", checkTodo)

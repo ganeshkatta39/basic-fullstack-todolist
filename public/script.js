@@ -38,6 +38,9 @@ async function get_tasks_onload(){
 
 function addTodo(data){
     data.forEach(element => {
+        // li element
+        const li_todo = document.createElement("li")
+        
         // todo div
         const todoDiv = document.createElement("div")
         todoDiv.classList.add("todo")
@@ -63,9 +66,12 @@ function addTodo(data){
         todoDiv.appendChild(deleteButton)
         // adding event listner to delete
         deleteButton.addEventListener("click", function() { deleteTodo(todoDiv,element); } )
+        
+        // appending div to li
+        li_todo.appendChild(todoDiv)
     
-        // appending div to list
-        todoList.appendChild(todoDiv)
+        // appending li to list
+        todoList.appendChild(li_todo)
         if(element.isDone){    
         todoDiv.classList.toggle("completed");
         }
